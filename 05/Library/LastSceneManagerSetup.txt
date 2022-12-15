@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Scenes/LineofSight/LineOfSight.unity
+  isLoaded: 1
+  isActive: 1
