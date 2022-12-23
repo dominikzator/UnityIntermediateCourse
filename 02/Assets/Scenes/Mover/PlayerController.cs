@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	{
 		float Horz = CrossPlatformInputManager.GetAxis("Horizontal");
 		float Vert = CrossPlatformInputManager.GetAxis("Vertical");
-
+		
 		ThisTransform.rotation *= Quaternion.Euler(new Vector3(0,RotateSpeed * Time.deltaTime * Horz,0));
 
 		//Calculate Move Dir

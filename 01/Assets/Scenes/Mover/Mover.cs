@@ -16,7 +16,7 @@ public class Mover : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		ThisTransform.position += ThisTransform.forward * MaxSpeed * Time.deltaTime;
+		ThisTransform.position += ThisTransform.forward * (MaxSpeed * Time.deltaTime);
 	}
 	//---------------------------------------------------
 }

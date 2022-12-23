@@ -1,4 +1,6 @@
 ﻿//---------------------------------------------------
+
+using System;
 using UnityEngine;
 using System.Collections;
 //---------------------------------------------------
@@ -10,6 +12,9 @@ public class PosProject : MonoBehaviour
 
 	public Transform LineStart = null;
 	public Transform LineEnd = null;
+
+	private Vector3 targetVector;
+	private Vector3 projectionVector;
 	//---------------------------------------------------
 	// Use this for initialization
 	void Awake () 
@@ -23,8 +28,12 @@ public class PosProject : MonoBehaviour
 		//Calculate normal
 		Vector3 Normal = (LineEnd.position - LineStart.position).normalized;
 
+		targetVector = Target.position - LineStart.position;
+
+		projectionVector = LineStart.position + Vector3.Project(targetVector, Normal);
+
 		//Update position
-		Vector3 Pos = LineStart.position + Vector3.Project(Target.position-LineStart.position, Normal);
+		Vector3 Pos = projectionVector;
 
 		//Clamp position between min and max
 		Pos.x = Mathf.Clamp(Pos.x, Mathf.Min(LineStart.position.x, LineEnd.position.x), Mathf.Max(LineStart.position.x, LineEnd.position.x));
@@ -32,6 +41,15 @@ public class PosProject : MonoBehaviour
 		Pos.z = Mathf.Clamp(Pos.z, Mathf.Min(LineStart.position.z, LineEnd.position.z), Mathf.Max(LineStart.position.z, LineEnd.position.z));
 
 		ThisTransform.position = Pos;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(LineStart.position, Target.position);
+		
+		Gizmos.color = Color.blue;
+		Gizmos.DrawLine(LineStart.position, projectionVector);
 	}
 	//---------------------------------------------------
 }
